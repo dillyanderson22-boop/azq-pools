@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@theme {
+  /* AZ Q Pools — Trades Industrial palette
+     Tagline: "We Clean the Dirty & Fix the Broken" */
+  --color-background: #0f1419;       /* industrial dark */
+  --color-surface: #1c242f;          /* card/section bg */
+  --color-foreground: #e6e8eb;       /* primary text */
+  --color-muted: #8a939e;            /* secondary text */
+  --color-accent: #1e90c4;           /* pool/water steel blue */
+  --color-accent-deep: #134e6e;      /* deep accent */
+  --color-warning: #ffd93d;          /* license/trust safety yellow */
+  --color-border: #2a3340;
+
+  /* Custom easing — Trades Industrial signature counter ease */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --font-display: var(--font-oswald);
+  --font-body: var(--font-inter);
+}
+
+html, body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-feature-settings: 'kern', 'liga', 'calt', 'tnum';
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Lenis */
+html.lenis { height: auto; }
+html.lenis.lenis-smooth { scroll-behavior: auto !important; }
+html.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+html.lenis.lenis-stopped { overflow: hidden; }
+
+.tabular { font-feature-settings: 'tnum'; }
+
+/* Hero fallback — industrial dark gradient with grit overlay */
+.hero-bg-fallback {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(30, 144, 196, 0.25) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(19, 78, 110, 0.55) 0%, transparent 60%),
+    linear-gradient(135deg, #0f1419 0%, #050a10 60%, #1c242f 100%);
+  position: relative;
+}
+.hero-bg-fallback::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.55'/></svg>");
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Photo overlay — bottom-weighted for text legibility */
+.hero-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(15, 20, 25, 0.55) 0%,
+    rgba(15, 20, 25, 0.2) 25%,
+    rgba(15, 20, 25, 0) 55%,
+    rgba(15, 20, 25, 0.92) 100%
+  );
+}
+
+/* Trade stripe pattern — used for accent dividers */
+.stripe-accent {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-warning) 0,
+    var(--color-warning) 12px,
+    transparent 12px,
+    transparent 24px
+  );
+}
+
+/* Selection */
+::selection {
+  background: var(--color-accent);
+  color: white;
+}
+
+/* Display type — Oswald, condensed, uppercase by default for headings */
+.display {
+  font-family: var(--font-oswald), system-ui, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+}
+
+.display-bold {
+  font-family: var(--font-oswald), system-ui, sans-serif;
+  font-weight: 600;
+}
+
+/* Vertical line draw — Trades Industrial signature */
+@keyframes drawLine {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+.line-draw {
+  transform-origin: top;
+  animation: drawLine 1.2s var(--ease-out-quint) forwards;
+}
